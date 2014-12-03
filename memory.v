@@ -47,21 +47,22 @@ initial
 //		memory[i] = 8'b0;
 //	end    
 
-    file = $fopen("MinMax.hexdump","r");
-    if (file == `NULL)
-        disable file_block;
+		file = $fopen("MinMax.hexdump","r");
+		if (file == `NULL)
+			disable file_block;
 
-    for (i = 0; i < 3 ; i=i+1)
-          				begin
-            					r = $fscanf(file, "%h  %h %h %h %h %h %h %h %h  %h %h %h %h %h %h %h %h\n", data_addr_reg, memory[data_addr_reg], memory[data_addr_reg+1], memory[data_addr_reg+2], memory[data_addr_reg+3], memory[data_addr_reg+4], memory[data_addr_reg+5], memory[data_addr_reg+6], memory[data_addr_reg+7], memory[data_addr_reg+8], memory[data_addr_reg+9], memory[data_addr_reg+10], memory[data_addr_reg+11], memory[data_addr_reg+12], memory[data_addr_reg+13], memory[data_addr_reg+14], memory[data_addr_reg+15]);
-          				end // for first loop
-    r = $fscanf(file, "%s\n", rest);
-	  for (i = 0; i < 8 ; i=i+1)
-      				begin
-       					r = $fscanf(file, "%h  %h %h %h %h %h %h %h %h  %h %h %h %h %h %h %h %h\n", inst_addr_reg, memory[inst_addr_reg], memory[inst_addr_reg+1], memory[inst_addr_reg+2], memory[inst_addr_reg+3], memory[inst_addr_reg+4], memory[inst_addr_reg+5], memory[inst_addr_reg+6], memory[inst_addr_reg+7], memory[inst_addr_reg+8], memory[inst_addr_reg+9], memory[inst_addr_reg+10], memory[inst_addr_reg+11], memory[inst_addr_reg+12], memory[inst_addr_reg+13], memory[inst_addr_reg+14], memory[inst_addr_reg+15]);
-      				end // for second loop
+		for (i = 0; i < 3 ; i=i+1)
+			begin
+					r = $fscanf(file, "%h  %h %h %h %h %h %h %h %h  %h %h %h %h %h %h %h %h\n", data_addr_reg, memory[data_addr_reg], memory[data_addr_reg+1], memory[data_addr_reg+2], memory[data_addr_reg+3], memory[data_addr_reg+4], memory[data_addr_reg+5], memory[data_addr_reg+6], memory[data_addr_reg+7], memory[data_addr_reg+8], memory[data_addr_reg+9], memory[data_addr_reg+10], memory[data_addr_reg+11], memory[data_addr_reg+12], memory[data_addr_reg+13], memory[data_addr_reg+14], memory[data_addr_reg+15]);
+			end // for first loop
+			
+		r = $fscanf(file, "%s\n", rest);
+		  for (i = 0; i < 8 ; i=i+1)
+			begin
+				r = $fscanf(file, "%h  %h %h %h %h %h %h %h %h  %h %h %h %h %h %h %h %h\n", inst_addr_reg, memory[inst_addr_reg], memory[inst_addr_reg+1], memory[inst_addr_reg+2], memory[inst_addr_reg+3], memory[inst_addr_reg+4], memory[inst_addr_reg+5], memory[inst_addr_reg+6], memory[inst_addr_reg+7], memory[inst_addr_reg+8], memory[inst_addr_reg+9], memory[inst_addr_reg+10], memory[inst_addr_reg+11], memory[inst_addr_reg+12], memory[inst_addr_reg+13], memory[inst_addr_reg+14], memory[inst_addr_reg+15]);
+			end // for second loop
 
-	  $fclose(file);
+		$fclose(file);
     end // initial
 
 // Read data
