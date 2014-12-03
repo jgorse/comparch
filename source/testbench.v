@@ -1,19 +1,21 @@
+`timescale 1ns/1ns
+
 module testbench();
 
 reg clk;
-integer count
+integer count;
 always #100 clk = ~clk;
 
 
 
 
-reg [4*8:1] inst_addr;
-reg [31:0]  instr;
-reg [4*8:1] data_addr;
-reg [31:0]  data_in;
-reg         mem_read;
-reg         mem_write;
-reg [31:0]  data_out;
+wire [4*8:1] inst_addr;
+wire [31:0]  instr;
+wire [4*8:1] data_addr;
+wire [31:0]  data_in;
+wire         mem_read;
+wire         mem_write;
+wire [31:0]  data_out;
 
 //declare memory
 Memory memory(
@@ -51,7 +53,7 @@ end
 always@(posedge clk) begin
     
     // print PC
-    $display("PC = %d", cpu.PC.pc_out);
+    $display("PC = %d", cpu.pc.pc_out);
     
     // print Registers
     $display("Registers");
@@ -65,20 +67,20 @@ always@(posedge clk) begin
     $display("R7(a3) =%d, R15(t7) =%d, R23(s7) =%d, R31(ra) =%d", cpu.RegFile.regFile[7], cpu.RegFile.regFile[15], cpu.RegFile.regFile[23], cpu.RegFile.regFile[31]);
 
     // print Data Memory
-    $display("Data Memory: 0x00 =%d", {cpu.memory.memory[3] , cpu.memory.memory[2] , cpu.memory.memory[1] , cpu.memory.memory[0] });
-    $display("Data Memory: 0x04 =%d", {cpu.memory.memory[7] , cpu.memory.memory[6] , cpu.memory.memory[5] , cpu.memory.memory[4] });
-    $display("Data Memory: 0x08 =%d", {cpu.memory.memory[11], cpu.memory.memory[10], cpu.memory.memory[9] , cpu.memory.memory[8] });
-    $display("Data Memory: 0x0c =%d", {cpu.memory.memory[15], cpu.memory.memory[14], cpu.memory.memory[13], cpu.memory.memory[12]});
-    $display("Data Memory: 0x10 =%d", {cpu.memory.memory[19], cpu.memory.memory[18], cpu.memory.memory[17], cpu.memory.memory[16]});
-    $display("Data Memory: 0x14 =%d", {cpu.memory.memory[23], cpu.memory.memory[22], cpu.memory.memory[21], cpu.memory.memory[20]});
-    $display("Data Memory: 0x18 =%d", {cpu.memory.memory[27], cpu.memory.memory[26], cpu.memory.memory[25], cpu.memory.memory[24]});
-    $display("Data Memory: 0x1c =%d", {cpu.memory.memory[31], cpu.memory.memory[30], cpu.memory.memory[29], cpu.memory.memory[28]});
+    $display("Data Memory: 0x00 =%d", {memory.memory[3] , memory.memory[2] , memory.memory[1] , memory.memory[0] });
+    $display("Data Memory: 0x04 =%d", {memory.memory[7] , memory.memory[6] , memory.memory[5] , memory.memory[4] });
+    $display("Data Memory: 0x08 =%d", {memory.memory[11], memory.memory[10], memory.memory[9] , memory.memory[8] });
+    $display("Data Memory: 0x0c =%d", {memory.memory[15], memory.memory[14], memory.memory[13], memory.memory[12]});
+    $display("Data Memory: 0x10 =%d", {memory.memory[19], memory.memory[18], memory.memory[17], memory.memory[16]});
+    $display("Data Memory: 0x14 =%d", {memory.memory[23], memory.memory[22], memory.memory[21], memory.memory[20]});
+    $display("Data Memory: 0x18 =%d", {memory.memory[27], memory.memory[26], memory.memory[25], memory.memory[24]});
+    $display("Data Memory: 0x1c =%d", {memory.memory[31], memory.memory[30], memory.memory[29], memory.memory[28]});
 	
     $display("\n");
 	$display("count: %d\n", count);
 	
     
-    counter = counter + 1;
+    count = count + 1;
 end
 
 
