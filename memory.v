@@ -16,9 +16,9 @@ module Memory(
 );
 
 // Interface
-input   [4*8:1]  inst_addr;
+input   [4*8:1] inst_addr;
 output  [31:0]  instr;
-input   [4*8:1]  data_addr;
+input   [4*8:1] data_addr;
 input   [31:0]  data_in;
 input           mem_read;
 input           mem_write;

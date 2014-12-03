@@ -1,13 +1,13 @@
-module add(in1, in2, out);
+module add(in0, in1, out);
+input  [31:0] in0;
 input  [31:0] in1;
-input  [31:0] in2;
 output [31:0] out;
 
 reg [31:0] out;
 
-always @(in1 or in2) 
+always @(in0 or in1) 
 begin
-	out = in1 + in2;
+	out = in0 + in1;
 end
   
 endmodule

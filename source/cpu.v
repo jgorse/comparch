@@ -1,5 +1,26 @@
-module SingleCycle_CPU(clk);
-input clk;
+module cpu(
+inst_addr,
+instr,
+data_addr,
+data_in,
+mem_read,
+mem_write,
+data_out
+clk
+);
+
+output [4*8:1] inst_addr;
+input  [31:0]  instr;
+output [4*8:1] data_addr;
+output [31:0]  data_in;
+output         mem_read;
+output         mem_write;
+input  [31:0]  data_out;
+input          clk
+
+
+
+reg clk;
 
 
 wire RegDST, Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Zero, BranchandZero;
@@ -23,16 +44,9 @@ PC PC(
 
 //Adder to add 4 to the program calendar for next instruction
 add PCadd4(
-.in1 (PC), 
-.in2 (4), 
+.in0 (PC), 
+.in1 (4), 
 .out (PCadd4) 
-);
-
-
-//Instruction memory module (MODULE NEEDS TO BE IMPLEMENTED******************************************************************************************)
-Imem InstructionMemory(
-.address     (PC), 
-.instruction (Instruction) 
 );
 
 
@@ -53,8 +67,8 @@ controlunit controlunit(
 
 //mux using RegDst as select line
 mux_5bit RegDst_mux(
-.in1    (Instruction[20:16]),
-.in2    (Instruction[15:11]),
+.in0    (Instruction[20:16]),
+.in1    (Instruction[15:11]),
 .select (RegDST),
 .out    (RegDST_mux)
 );
@@ -82,16 +96,16 @@ sign_extend Sign_Extend(
 
 //Adder that adds shifted Sign-Extend with PC+4
 add PC_Add_Offset(
-.in1 (PCadd4),
-.in2 (SignExtendShifted),
+.in0 (PCadd4),
+.in1 (SignExtendShifted),
 .out (PCoffset)
 );
 
 
 //mux using ALUSrc as select line
 mux_32bit ALUSrc_mux(
-.in1    (ReadData2),
-.in2    (SignExtend),
+.in0    (ReadData2),
+.in1    (SignExtend),
 .select (ALUSrc),
 .out    (ALUSrc_mux)
 );
@@ -117,8 +131,8 @@ alu ALU(
 
 //mux using BranchandZero as control line
 mux_32bit Branch_mux(
-.in1    (PCadd4),
-.in2    (PCoffset),
+.in0    (PCadd4),
+.in1    (PCoffset),
 .select (BranchandZero),
 .out    (Branch_mux)
 );
@@ -126,8 +140,8 @@ mux_32bit Branch_mux(
 
 //mux using Jump as control line
 mux_32bit Jump_mux(
-.in1    (Branch_mux),
-.in2    (JumpAddress),
+.in0    (Branch_mux),
+.in1    (JumpAddress),
 .select (Jump),
 .out    (Jump_mux)
 );
@@ -146,8 +160,8 @@ Data_Memory Data_Memory(
 
 //mux using MemtoReg as control line
 mux_32bit MemtoReg_mux(
-.in1    (ALUResult),
-.in2    (Dmem),//output of DMEM
+.in0    (ALUResult),
+.in1    (Dmem),//output of DMEM
 .select (MemtoReg),
 .out    (MemtoReg_mux)
 );

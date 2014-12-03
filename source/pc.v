@@ -1,29 +1,13 @@
-module PC(
-    clk,
-    rst_n,
-    pc_in,
-    pc_out
-);
-
-// Interface
+module PC(clk, pc_in, pc_out);
 input           clk;
-input           rst_n;
 input   [31:0]  pc_in;
 output  [31:0]  pc_out;
 
-// Wire/Reg
 reg     [31:0]  pc_out;
 
-always @(posedge clk or negedge rst_n)
+always @(posedge clk)
 begin
-    if (~rst_n)
-    begin
-        pc_out <= 32'b0;
-    end
-    else
-    begin
-        pc_out <= pc_in;
-    end
+    pc_out = pc_in;
 end
 
 endmodule
