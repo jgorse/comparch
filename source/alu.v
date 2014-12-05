@@ -1,7 +1,7 @@
 module alu( output reg[31:0] aluresult, output zero,
-            input[3:0] operation, input[31:0] data_a, input [31:0] data_b );
+            input[3:0] operation, input signed [31:0] data_a, input signed [31:0] data_b );
   // These codes and outputs are taken from figure 4.12 and the first graph in ch.4.4 P&H.
-  assign zero = (aluresult == '0);    
+  assign zero = (aluresult == 0);    
   always @ (operation or data_a or data_b) begin
     case (operation)
       4'b0000: begin // AND

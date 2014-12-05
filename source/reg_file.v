@@ -5,7 +5,7 @@ input regWrite, clk,
 output reg [31:0] readData1, readData2
 );
 
-reg [31:0] regFile [31:0];
+reg signed[31:0] regFile [31:0];
 integer i;
 
 //initialize reg to all 0s
@@ -20,7 +20,7 @@ always@(readReg1 or readReg2) begin
 	 readData2 <= regFile[readReg2];
 end
 
-always@(posedge clk) begin
+always@(negedge clk) begin
 	if(regWrite)
 		regFile[writeReg] <= writeData;
 end

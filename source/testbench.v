@@ -42,7 +42,7 @@ cpu cpu(
 initial begin
 clk = 0;
 //inst_addr = 32'h00003000;
-#1000;
+#2000;
 end
 
 
@@ -51,6 +51,7 @@ end
 always@(negedge clk) begin
 	//always print last PC
 	$display("PC = %h", inst_addr);
+	$display("instr = %h", instr);
 	
 	//If hlt instruction is reached
     if (inst_addr == `EOF) begin
